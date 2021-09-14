@@ -17,6 +17,7 @@ This code is provided as is, with no guarantees or liabilities. Proper operation
 - [raster data preprocessing: e.g. ESA SNAP and QGIS]
 
 ## Installation
+E.g.
 ```conda create -n mdpi-remotesensing-1305061 python=3```
 ```conda install numpy scikit-learn pandas pyyaml bzip2 pystan rasterio shapely fiona```
 
