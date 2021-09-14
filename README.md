@@ -1,7 +1,7 @@
 # mdpi-remotesensing-1305061
 This code is to accompany an article manuscript sent to MDPI Remote Sensing journal with the title "Density Estimates as Object Representations of Agricultural Fields in Remote Sensing".
 
-The role of this repository is to assist in verification of authenticity of research, and to provide implementation details for the reader, not as code ready to be run in production.
+The role of this repository is to assist in verification of authenticity of research, accompany article text, illustrate the data flow of the proposed framework, and to provide implementation details for the reader, not as code ready to be run in production.
 ## Note on data availability
 Complying with the EU General Data Protection Regulation (GDPR) and a data usage license granted by the Finnish Food Authority, we cannot disclose the original field parcel annotations described in the manuscript. With best effort however, we aim to publish synthetic annotation samples in the near future, sufficient to verify the workings of the pipeline. The software accepts
 - .tiff rasters extracted from S1/S2 imagery. Required image channel order is indicated in config.yml .
