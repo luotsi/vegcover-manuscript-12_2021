@@ -29,7 +29,8 @@ Polygons in the ESRI .shp shapefiles are required to have the following property
 
 ## Extracting the pixel sets per object: 
 
-See make_msi_datasets.sh, make_sar_dataset.py 
+See make_msi_datasets.sh, make_sar_dataset.py . The code produces a train and a test dataset for SAR and MSI datasets, e.g. those referred to in the pipeline sample configurations:```train_s2_ndti_ndvi.pkl, test_s2_ndti_ndvi.pkl, train_s1_vh_vv.pkl, test_s1_vh_vv.pkl```
+
 
 ## Running the pipeline
 
