@@ -1,0 +1,99 @@
+output_timestamp_suffix: true
+save_outputs: true
+experiment_name: pipeline_fast__0_3_4__-30_0_-30_0__30bin
+n_iterations: 5
+pipeline:
+  - id: patch_dataset_filter
+    step: dataset_filter
+    name: patch_dataset
+    n_train_samples_prior: 0
+    n_train_samples: 100
+    n_test_samples: 300
+    random_seed: true
+    patch_max_n_pixels:
+    included_original_classes:
+      - 0
+      - 3
+      - 4
+    data_source: S1
+    train_path: sar_dataset_location/train.pkl
+    test_path: sar_dataset_location/test.pkl
+  - id: density_estimator
+    step: density_estimate
+    name: gkde
+    output: density_estimate
+    n_bins_per_dim: 30
+    extreme_bins:
+      - -30
+      - 0
+      - -30
+      - 0
+    estimate_class_densities: false
+    params:
+      basis: 'off' # gaussian, exp, off
+      matlab_gpstuff_dir: /home/mlu/work/rs/vegcover_matlab/gpstuff
+      max_n_pixels: 7000
+  - id: classifier_rf
+    step: classifier
+    input:
+      - density_estimate
+    name: sklearn_classifier
+    output: sklearn_classifier_rf
+    normalizer: l2
+    classifier: RandomForestClassifier
+    params:
+      n_estimators: 4000
+      random_state: 0
+      max_depth:
+
+  - id: classifier_svc
+    step: classifier
+    input:
+      - density_estimate
+    name: sklearn_classifier
+    output: sklearn_classifier_svc
+    classifier: SVC
+    normalizer: l2
+    params:
+      kernel: sigmoid
+
+  - id: classifier_mlp
+    step: classifier
+    input:
+      - density_estimate
+    name: sklearn_classifier
+    output: sklearn_classifier_mlp
+    classifier: MLPClassifier
+    normalizer: l2
+    params:
+      hidden_layer_sizes:
+        - 100
+      max_iter: 100
+
+
+variations:
+  - id: density_estimator
+    name:
+      - gkde
+      - lgpde_approx
+      - ndhistogram
+  - id: density_estimator
+    n_bins_per_dim:
+      - 30
+  - id: patch_dataset_filter
+    patch_max_n_pixels:
+      -
+  - id: patch_dataset_filter
+    n_train_samples:
+      - 10
+      - 20
+      - 30
+      - 50
+      - 100
+      - 300
+
+
+save_output_for_steps:
+  - sklearn_classifier_rf
+  - sklearn_classifier_svc
+  - sklearn_classifier_mlp

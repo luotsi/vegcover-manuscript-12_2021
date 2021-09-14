@@ -1,0 +1,49 @@
+prod:
+  class_index:
+    - "kyntö -
+
+        conventional tillage (ploughing)"
+    - "kevytmuokkaus -
+
+        conservation tillage"
+    - "syysvilja -
+
+        autumn crop"
+    - "nurmi -
+
+        grass"
+    - "sänkipelto -
+
+        stubble (no tillage)"
+    - "sänkipelto, aluskasv. -
+
+        stubble with companion crop"
+
+
+  pipeline:
+    cache_index_root: /var/data/2/work/sar_veg/pipeline
+    do_compile_stan_models: true
+    use_cached_densities: false
+    suppress_summary: true
+  pixel_sampler:
+    output_dir: /var/data/3/work/sar_veg/gen_dataset_6cl
+    raster_files:
+      s2_ndti_ndvi:
+        file_name: /var/data/3/work/sar_veg/S2A_MSIL2A_201804_mosaic_T34VFM_T34VEN_T34VFN_cld+snw+ndti+ndvi.tif  #subset_S2B_MSIL2A_20180418T095029_N0207_R079_T34VFN_20180418T111406_rgb+b12+cld+snw+crci+ndvi_ETRS-T35FIN.tif
+        band_index:
+          - B2
+          - B3
+          - B4
+          - p_cld
+          - p_snw
+          - ndti
+          - ndvi
+
+    shapefile_root: /var/data/3/work/sar_veg/references
+    class_shapefiles:
+      - target-reference0-2018.shp
+      - target-reference1-2018.shp
+      - target-reference2-2018.shp
+      - target-reference3-2018.shp
+      - target-reference4-2018.shp
+      - target-reference5-2018.shp

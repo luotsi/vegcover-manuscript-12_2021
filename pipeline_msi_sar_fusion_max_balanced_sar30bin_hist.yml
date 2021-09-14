@@ -1,0 +1,172 @@
+output_timestamp_suffix: false
+save_outputs: true
+experiment_name: msi_sar_fusion_with_pxf_max_balanced_sar30bin
+n_iterations: 5
+map_parallel_summary_de_name: ndhistogram # such a hack, get rid of this ASAP
+pipeline:
+  - id: patch_intersection
+    step: patch_intersection
+    name: patch_intersection
+    data_source: 'S1_SAR_S2_MSI_fusion'
+    n_train_samples: 1
+    n_test_samples: 1500
+    output: patch_intersection
+    included_original_classes:
+      - 0
+      - 3
+      - 4
+    datasets:
+      - train_path: /var/data/3/work/sar_veg/gen_dataset_6cl/train_s2_ndti_ndvi.pkl
+        test_path: /var/data/3/work/sar_veg/gen_dataset_6cl/test_s2_ndti_ndvi.pkl
+        px_filter: msi_cloud_and_snow_filter
+        included_bands:
+          - 5
+          - 6
+      - train_path: /var/data/3/work/sar_veg/gen_dataset_6cl/train_s1_vh_vv.pkl
+        test_path: /var/data/3/work/sar_veg/gen_dataset_6cl/test_s1_vh_vv.pkl
+  - id: parallel_msi_sar_densityest
+    step: map_parallel
+    name: map_parallel
+    n_bins_per_dim: # N/A
+    outputs:
+      - density_estimate_sar
+      - density_estimate_msi
+    extreme_bins:
+      -
+        - -30
+        - 0
+        - -30
+        - 0
+      -
+        - -1
+        - 1
+        - -1
+        - 1
+    tasks:
+      - pipeline:
+        - id: patch_dataset_sar
+          step: dataset_filter
+          name: patch_dataset
+          output: patch_dataset
+          n_train_samples_prior: 0
+          n_train_samples:
+          n_test_samples:
+          generate_random_seed: true
+          patch_max_n_pixels:
+          included_original_classes:
+            - 0
+            - 3
+            - 4
+          data_source: S1
+          train_path: /var/data/3/work/sar_veg/gen_dataset_6cl/train_s1_vh_vv.pkl
+          test_path: /var/data/3/work/sar_veg/gen_dataset_6cl/test_s1_vh_vv.pkl
+        - id: density_estimator_sar
+          step: density_estimate
+          name: ndhistogram
+          output: density_estimate_sar
+          n_bins_per_dim: 30
+          extreme_bins:
+            - -30
+            - 0
+            - -30
+            - 0
+          estimate_class_densities: false
+          params:
+            basis: 'off' # gaussian, exp, off
+            matlab_gpstuff_dir: /home/mlu/work/rs/vegcover_matlab/gpstuff
+            max_n_pixels: 7000
+      - pipeline:
+        - id: patch_dataset_msi
+          step: dataset_filter
+          name: patch_dataset
+          output: patch_dataset
+          n_train_samples_prior: 0
+          n_train_samples:
+          n_test_samples:
+          generate_random_seed: true
+          patch_max_n_pixels:
+          included_bands:
+            - 5
+            - 6
+          included_original_classes:
+            - 0
+            - 3
+            - 4
+          px_filter: msi_cloud_and_snow_filter
+          data_source: S2_crci_ndvi
+          train_path: /var/data/3/work/sar_veg/gen_dataset_6cl/train_s2_ndti_ndvi.pkl
+          test_path: /var/data/3/work/sar_veg/gen_dataset_6cl/test_s2_ndti_ndvi.pkl
+        - id: density_estimator_msi
+          step: density_estimate
+          name: ndhistogram
+          output: density_estimate_msi
+          n_bins_per_dim: 50
+          extreme_bins:
+            - -1
+            - 1
+            - -1
+            - 1
+          estimate_class_densities: true
+          params:
+            basis: 'off' # gaussian, exp, off
+            matlab_gpstuff_dir: /home/mlu/work/rs/vegcover_matlab/gpstuff
+            max_n_pixels: 7000
+  - id: reduce_concatenate_densities
+    step: reduce_concatenate_densities
+    name: reduce_concatenate_densities
+    densities:
+      - density_estimate_sar
+      - density_estimate_msi
+    output: density_estimate
+  - id: classifier_rf
+    step: classifier
+    input:
+      - density_estimate
+    name: sklearn_classifier
+    output: sklearn_classifier_rf
+    normalizer: l2
+    classifier: RandomForestClassifier
+    params:
+      n_estimators: 4000
+      random_state: 0
+      max_depth:
+
+  - id: classifier_svc
+    step: classifier
+    skip: true
+    input:
+      - density_estimate
+    name: sklearn_classifier
+    output: sklearn_classifier_svc
+    classifier: SVC
+    normalizer: l2
+    params:
+      kernel: sigmoid
+
+  - id: classifier_mlp
+    step: classifier
+    skip: true
+    input:
+      - density_estimate
+    name: sklearn_classifier
+    output: sklearn_classifier_mlp
+    classifier: MLPClassifier
+    normalizer: l2
+    params:
+      hidden_layer_sizes:
+        - 100
+      max_iter: 100
+
+
+variations:
+  - id: patch_intersection
+    n_train_samples:
+      - 6500
+
+
+
+
+save_output_for_steps:
+  - sklearn_classifier_rf
+  - sklearn_classifier_svc
+  - sklearn_classifier_mlp
