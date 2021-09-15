@@ -1,5 +1,5 @@
 # mdpi-remotesensing-1305061
-This code is to accompany an article manuscript sent to MDPI Remote Sensing journal with the title "Density Estimates as Object Representations of Agricultural Fields in Remote Sensing".
+This code is to accompany the article manuscript "Density Estimates as Object Representations of Agricultural Fields in Remote Sensing".
 
 The role of this repository is to assist in verification of authenticity of research, accompany article text, illustrate the data flow of the proposed framework, and to provide implementation details for the reader, not as code ready to be run in production.
 ## Note on data availability
