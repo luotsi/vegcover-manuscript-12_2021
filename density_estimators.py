@@ -9,7 +9,6 @@ from pathlib import Path
 from matplotlib import pyplot as plt
 from math import ceil, sqrt
 
-import matlab.engine
 import numpy as np
 import pystan
 from scipy.stats import gaussian_kde
@@ -20,7 +19,8 @@ import pixel_sampler
 
 from config import config
 from histogram import PatchDatasetBandHistograms
-from redirect import suppress_stdout_stderr
+if config['pipeline']['use_matlab']:
+    import matlab.engine
 
 _HYPERPRIOR_WEIGHT_ALPHA = 1
 _LGPDE_CACHE_KEYS = ['step_name', 'patch_id', 'n_pixels', 'n_bins_per_dim', 'extreme_bins', 'params']

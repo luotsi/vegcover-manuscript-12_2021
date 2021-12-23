@@ -18,6 +18,7 @@ from classifiers import Classifiers
 from config import config
 from dataset_reader import DatasetReaders, PatchIntersection
 from density_estimators import DensityEstimators
+from pixel_sampler import PatchDataset, Patch
 
 _USE_SAMPLE_CACHE = config['pipeline']['use_cached_densities']
 _CACHE_INDEX_ROOT = config['pipeline']['cache_index_root']

@@ -16,8 +16,8 @@ pipeline:
       - 3
       - 4
     data_source: S1
-    train_path: sar_dataset_location/train.pkl
-    test_path: sar_dataset_location/test.pkl
+    train_path: data/train_s1_mosaic.pkl
+    test_path: data/test_s1_mosaic.pkl
   - id: density_estimator
     step: density_estimate
     name: gkde
@@ -75,7 +75,7 @@ variations:
   - id: density_estimator
     name:
       - gkde
-      - lgpde_approx
+      #- lgpde_approx
       - ndhistogram
   - id: density_estimator
     n_bins_per_dim:

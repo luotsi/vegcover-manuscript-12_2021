@@ -10,6 +10,8 @@ import textwrap
 from dataclasses import dataclass
 from functools import reduce
 from typing import Dict
+import hashlib
+import os
 
 import fiona
 import numpy as np
@@ -27,7 +29,13 @@ MIN_NUM_PIXELS_PER_PATCH = 5
 RANDOM_SEED_DEFAULT = 789
 
 DEFAULT_MSI_BAND_INDEX = config['pixel_sampler']['raster_files']['s2_ndti_ndvi']['band_index']
+HASH_SALT = os.environ.get('HASH_SALT', default=str(np.random.randint(np.iinfo('int32').max)))
+print(f'SHA 256 hash salt is {HASH_SALT} .')
 
+def digest(string):
+    h = hashlib.sha224(string.encode('utf-8'))
+    h.update(HASH_SALT.encode('utf-8'))
+    return h.hexdigest()
 
 def reverse_band_index(band_index):
     return {band_name: ix for ix, band_name in enumerate(band_index)}
@@ -118,6 +126,8 @@ class PatchDataset:
                         if bounding_box.contains(shape):
                             patch_data, _ = rasterio.mask.mask(raster_dataset, [shape], crop=True, filled=False)
                             band_pixels = np.array([patch_data[i].compressed() for i in range(patch_data.shape[0])]).T
+                            if config['pipeline']['do_anonymize'] and feature['properties']['parcelID'] is not None:
+                                feature['properties']['parcelID'] = digest(feature['properties']['parcelID'])
                             patch_properties = feature['properties']
                             if band_pixels.shape[0] >= MIN_NUM_PIXELS_PER_PATCH:
                                 patch = Patch(band_pixels, patch_properties, f_patch_stats=f_patch_stats)

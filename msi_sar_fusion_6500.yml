@@ -1,8 +1,8 @@
 output_timestamp_suffix: false
 save_outputs: true
-experiment_name: msi_sar_fusion_with_pxf_max_balanced_sar30bin
+experiment_name: msi_sar_fusion_6500
 n_iterations: 5
-map_parallel_summary_de_name: ndhistogram # such a hack, get rid of this ASAP
+map_parallel_summary_de_name: ndhistogram
 pipeline:
   - id: patch_intersection
     step: patch_intersection
@@ -16,14 +16,14 @@ pipeline:
       - 3
       - 4
     datasets:
-      - train_path: /var/data/3/work/sar_veg/gen_dataset_6cl/train_s2_ndti_ndvi.pkl
-        test_path: /var/data/3/work/sar_veg/gen_dataset_6cl/test_s2_ndti_ndvi.pkl
+      - train_path: data/train_s2_ndti_ndvi.pkl
+        test_path: data/test_s2_ndti_ndvi.pkl
         px_filter: msi_cloud_and_snow_filter
         included_bands:
           - 5
           - 6
-      - train_path: /var/data/3/work/sar_veg/gen_dataset_6cl/train_s1_vh_vv.pkl
-        test_path: /var/data/3/work/sar_veg/gen_dataset_6cl/test_s1_vh_vv.pkl
+      - train_path: data/train_s1_mosaic.pkl
+        test_path: data/test_s1_mosaic.pkl
   - id: parallel_msi_sar_densityest
     step: map_parallel
     name: map_parallel
@@ -58,8 +58,8 @@ pipeline:
             - 3
             - 4
           data_source: S1
-          train_path: /var/data/3/work/sar_veg/gen_dataset_6cl/train_s1_vh_vv.pkl
-          test_path: /var/data/3/work/sar_veg/gen_dataset_6cl/test_s1_vh_vv.pkl
+          train_path: data/train_s1_mosaic.pkl
+          test_path: data/test_s1_mosaic.pkl
         - id: density_estimator_sar
           step: density_estimate
           name: ndhistogram
@@ -93,9 +93,9 @@ pipeline:
             - 3
             - 4
           px_filter: msi_cloud_and_snow_filter
-          data_source: S2_crci_ndvi
-          train_path: /var/data/3/work/sar_veg/gen_dataset_6cl/train_s2_ndti_ndvi.pkl
-          test_path: /var/data/3/work/sar_veg/gen_dataset_6cl/test_s2_ndti_ndvi.pkl
+          data_source: S2_ndti_ndvi
+          train_path: data/train_s2_ndti_ndvi.pkl
+          test_path: data/test_s2_ndti_ndvi.pkl
         - id: density_estimator_msi
           step: density_estimate
           name: ndhistogram
@@ -109,7 +109,7 @@ pipeline:
           estimate_class_densities: true
           params:
             basis: 'off' # gaussian, exp, off
-            matlab_gpstuff_dir: /home/mlu/work/rs/vegcover_matlab/gpstuff
+            matlab_gpstuff_dir: /path/to/matlab/gpstuff
             max_n_pixels: 7000
   - id: reduce_concatenate_densities
     step: reduce_concatenate_densities
@@ -133,7 +133,7 @@ pipeline:
 
   - id: classifier_svc
     step: classifier
-    skip: true
+    skip: false
     input:
       - density_estimate
     name: sklearn_classifier
@@ -145,7 +145,7 @@ pipeline:
 
   - id: classifier_mlp
     step: classifier
-    skip: true
+    skip: false
     input:
       - density_estimate
     name: sklearn_classifier
