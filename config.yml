@@ -16,7 +16,7 @@ prod:
     suppress_summary: false
     use_matlab: false
   pixel_sampler:
-    output_dir: ./data
+    output_dir: ./data # for initial extraction of the pixel sets
     raster_files:
       s1_mosaic:
         file_name: /var/data/3/work/sar_veg/s1m_grd_20180411-20180421_vh_vv.tif
