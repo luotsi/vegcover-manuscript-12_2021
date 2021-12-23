@@ -22,7 +22,8 @@ RUN conda install numpy scikit-learn pandas pyyaml bzip2 pystan rasterio shapely
 RUN apt-get update && apt-get install -y git procps git-lfs
 ENV REPO_NAME=vegcover-manuscript-12_2021
 ENV HOME_DIR=/home/vegcover
-RUN echo && mkdir $HOME_DIR && cd $HOME_DIR && git clone https://github.com/luotsi/$REPO_NAME.git
+ARG HOST_DATE
+RUN echo Cloning repo on $HOST_DATE && mkdir $HOME_DIR && cd $HOME_DIR && git clone https://github.com/luotsi/$REPO_NAME.git
 RUN cd $HOME_DIR/$REPO_NAME && git lfs pull
 WORKDIR $HOME_DIR/$REPO_NAME
 
