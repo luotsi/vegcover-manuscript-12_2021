@@ -15,6 +15,7 @@ prod:
     use_cached_densities: false
     suppress_summary: false
     use_matlab: false
+    output_root_dir: /out # for outputting classification results and metriics
   pixel_sampler:
     output_dir: ./data # for initial extraction of the pixel sets
     raster_files:

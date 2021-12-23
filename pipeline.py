@@ -258,7 +258,7 @@ def _output_dir_path(batch_conf, batch_conf_file_path, variant_ix=None, iteratio
     iteration_suffix = "" if iteration_ix is None else f'.{iteration_ix}'
     timestamp_str = datetime.now().strftime('%Y-%m-%dT%H:%M:%S')
     dirname_suffix = f'.{timestamp_str}.out' if batch_conf['output_timestamp_suffix'] else '.out'
-    output_dir = batch_conf_file_path.replace('.yml', f'{variant_suffix}{iteration_suffix}{dirname_suffix}')
+    output_dir = config['pipeline']['output_root_dir'] + '/' + os.path.basename(batch_conf_file_path).replace('.yml', f'{variant_suffix}{iteration_suffix}{dirname_suffix}')
     return output_dir
 
 
