@@ -1,0 +1,1 @@
+Mount this placeholder dir to the docker container as /out using -v
