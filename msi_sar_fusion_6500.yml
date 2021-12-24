@@ -73,7 +73,7 @@ pipeline:
           estimate_class_densities: false
           params:
             basis: 'off' # gaussian, exp, off
-            matlab_gpstuff_dir: /home/mlu/work/rs/vegcover_matlab/gpstuff
+            matlab_gpstuff_dir: /path/to/matlab/gpstuff
             max_n_pixels: 7000
       - pipeline:
         - id: patch_dataset_msi
