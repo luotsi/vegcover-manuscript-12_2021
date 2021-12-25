@@ -10,20 +10,25 @@ e.g. a Matlab license or high-power computing resources that we used for computi
 This code is provided as is, with no guarantees or liabilities. 
 Proper operation requires input data in appropriate format, and adjustment of the data paths in the configuration files.
 
-## Hardware & software requirements
+## Hardware & software requirements (with Docker)
 - Linux or MacOS
 - \>= 16GB RAM. 20GB Hard disk space.
+- git
 - Docker
-- For running outside of docker: git, conda and Python3
+- bash
 
 ## Running example experiments on Docker for the data of our study:
-- ```mkdir out```
-- ```docker run -v (pwd)/out:/out -it luotsi/vegcover-manuscript-12_2021.latest ./sar_10_to_300.sh```
-- or ```docker run -v (pwd)/out:/out -it luotsi/vegcover-manuscript-12_2021.latest ./msi_sar_fusion_6500.sh```
+- (assumes docker and git can be run from command line)
+- ```git clone https://github.com/luotsi/vegcover-manuscript-12_2021.git```
+- ```cd vegcover-manuscript-12_2021```
+- ```./run_pipeline_docker.sh``` (defaults to experiment configuration msi_sar_fusion_6500.yml)
+- or e.g. ```bash ./run_pipeline_docker.sh msi_sar_fusion_6500.yml```
+- or e.g. ```./run_pipeline_docker.sh sar_10_to_300.yml```
 
 
 ## Running the pipeline outside of docker
-- Requires conda
+- Requires git, conda and Python3
+
 - ```git clone https://github.com/luotsi/vegcover-manuscript-12_2021.git```
 - ```cd vegcover-manuscript-12_2021```
 - ```conda create -n vegcover-manuscript-12_2021 python=3.7```
