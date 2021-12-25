@@ -23,8 +23,11 @@ Proper operation requires input data in appropriate format, and adjustment of th
 - ```cd vegcover-manuscript-12_2021```
 - ```./run_pipeline_docker.sh``` (defaults to experiment configuration msi_sar_fusion_6500.yml)
 - or e.g. ```bash ./run_pipeline_docker.sh msi_sar_fusion_6500.yml```
-- or e.g. ```./run_pipeline_docker.sh sar_10_to_300.yml```
+- or ```./run_pipeline_docker.sh sar_10_to_300.yml```
 
+You can also run a shell in the docker image as usual to explore the runtime environment with the command:
+
+- ```docker run -it luotsi/vegcover bash```
 
 ## Running the pipeline outside of docker
 - Requires git, conda and Python3
