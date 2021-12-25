@@ -19,6 +19,11 @@ Proper operation requires input data in appropriate format, and adjustment of th
 - Memory and CPU:
 
 We ran most experiments on Ubuntu 18.04 with an Intel(R) Core(TM) i3-8350K CPU running at 4.00GHz with 48GB of RAM. 
+Tests are organized into suites of variant runs that alter e.g. choice of sample size, density estimator, classifier,
+or their properties, for each experiment. E.g. the altered parameters are seen as the X axes and the 95% confidence 
+intervals of the manuscript illustrations. 
+Although individual tests mostly take seconds to minutes to run, they are run multiple times (5) each to reduce and 
+quantify the uncertainty of results. This automates running the experiments, but correspondingly these factors multiply total execution time. 
 To run configurations enabling LGPDE (not included, available on request) we used the Helsinki University high-power 
 computing "Puhti" environment to run Stan MCMC as parallel processes.
 
