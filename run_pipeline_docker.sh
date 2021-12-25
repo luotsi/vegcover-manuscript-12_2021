@@ -4,4 +4,4 @@
 
 PIPELINE_CONFIG=${1:-msi_sar_fusion_6500.yml} 
 echo Running pipeline for config $PIPELINE_CONFIG ...   
-docker run -e PROJ_LIB=/usr/local/include/proj -v $(pwd)/out:/out -it luotsi/vegcover python ./pipeline.py -t $PIPELINE_CONFIG
+docker run -e PROJ_LIB=/usr/local/include/proj -v $(pwd)/out:/out -it luotsi/vegcover python -u ./pipeline.py -t $PIPELINE_CONFIG

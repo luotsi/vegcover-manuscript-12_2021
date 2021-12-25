@@ -21,7 +21,7 @@ Proper operation requires input data in appropriate format, and adjustment of th
 - (assumes docker and git can be run from command line)
 - ```git clone https://github.com/luotsi/vegcover-manuscript-12_2021.git```
 - ```cd vegcover-manuscript-12_2021```
-- ```./run_pipeline_docker.sh``` (defaults to experiment configuration msi_sar_fusion_6500.yml)
+- ```./run_pipeline_docker.sh``` (defaults to experiment configuration msi_sar_fusion_6500.yml, run will take a few hours)
 - or e.g. ```bash ./run_pipeline_docker.sh msi_sar_fusion_6500.yml```
 - or ```./run_pipeline_docker.sh sar_10_to_300.yml```
 
