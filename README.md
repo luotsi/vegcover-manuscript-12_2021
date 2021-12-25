@@ -1,5 +1,5 @@
 # vegcover-manuscript-12_2021
-This code is to accompany the article manuscript "Density Estimates as Object Representations of Agricultural Fields in Remote Sensing".
+This code is to accompany the article manuscript "Density Estimates as Representations of Agricultural Fields for Remote Sensing-Based Monitoring of Tillage and Vegetation Cover".
 
 The role of this repository is to assist in verification of authenticity of research, accompany article text, 
 illustrate the data flow of the proposed framework, and to provide implementation details for the reader, 
@@ -9,13 +9,6 @@ experiments to demonstrate the data flow of the pipeline including realistic dat
 e.g. a Matlab license or high-power computing resources that we used for computing Stan/MCMC results for LGPDE.
 This code is provided as is, with no guarantees or liabilities. 
 Proper operation requires input data in appropriate format, and adjustment of the data paths in the configuration files.
-
-## Note on data
-Complying with the EU General Data Protection Regulation (GDPR) and a data usage license granted by the Finnish Food Authority, 
-we have anonymized the derived dataset of this example in directory ```vegcover-manuscript-12_2021/data/```, 
-i.e. we have run a salted SHA-256 irreversible hash on parcel identifiers 
-and removed all geometry information to make individual parcels unidentifiable. 
-
 
 ## Hardware & software requirements
 - Linux or MacOS

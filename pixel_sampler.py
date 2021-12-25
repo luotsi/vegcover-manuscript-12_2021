@@ -29,8 +29,7 @@ MIN_NUM_PIXELS_PER_PATCH = 5
 RANDOM_SEED_DEFAULT = 789
 
 DEFAULT_MSI_BAND_INDEX = config['pixel_sampler']['raster_files']['s2_ndti_ndvi']['band_index']
-HASH_SALT = os.environ.get('HASH_SALT', default=str(np.random.randint(np.iinfo('int32').max)))
-print(f'Generated new random hash salt: {HASH_SALT} .')
+HASH_SALT = os.environ.get('HASH_SALT')
 
 def digest(string):
     h = hashlib.sha224(string.encode('utf-8'))
