@@ -27,7 +27,7 @@ extensive set of variant combinations of sample sizes, density estimators and cl
 The timeout can currently be adjusted only in code by increasing the hard-coded 900s timeout constant 
 _TIMEOUT_PARALLEL_S in module pipeline.py . 
 
-Alternatively, please consider experiment on small samples of SAR data configured in sar_10_to_300.yml used in one of the 
+Alternatively, please consider the suite on small samples of SAR data configured in sar_10_to_300.yml used in one of the 
 experiments of manuscript Section 3.1 - details given below.
 
 ## Running example experiments on Docker for the data of our study:
