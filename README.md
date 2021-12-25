@@ -12,10 +12,23 @@ Proper operation requires input data in appropriate format, and adjustment of th
 
 ## Hardware & software requirements (with Docker)
 - Linux or MacOS
-- \>= 16GB RAM. 20GB Hard disk space.
+- 20GB Hard disk space.
 - git
 - Docker
 - bash
+- Memory and CPU:
+
+We ran most experiments on Ubuntu 18.04 with an Intel(R) Core(TM) i3-8350K CPU running at 4.00GHz with 48GB of RAM. 
+To run configurations enabling LGPDE (not included, available on request) we used the Helsinki University high-power 
+computing "Puhti" environment to run Stan MCMC as parallel processes.
+
+Errata: With less resources you might run into parallel timeouts for the default long-running suite of experiments that runs an 
+extensive set of variant combinations of sample sizes, density estimators and classifiers, plus intersects SAR-MSI datasets.
+The timeout can currently be adjusted only in code by increasing the hard-coded 900s timeout constant 
+_TIMEOUT_PARALLEL_S in module pipeline.py . 
+
+Alternatively, please consider experiment on small samples of SAR data configured in sar_10_to_300.yml used in one of the 
+experiments of manuscript Section 3.1 - details given below.
 
 ## Running example experiments on Docker for the data of our study:
 - (assumes docker and git can be run from command line)
