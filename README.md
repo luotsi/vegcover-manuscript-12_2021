@@ -4,7 +4,7 @@ This code is to accompany the article manuscript "Density Estimates as Represent
 The role of this repository is to assist in verification of authenticity of research, accompany article text, 
 illustrate the data flow of the proposed framework, and to provide implementation details for the reader, 
 not as code ready to be run in production.
-The code is a Docker-enabled version of the code used for our study that is set up to run essential parts of the 
+The code is a Docker-enabled version of the code used for our study that is set up to run representative examples of 
 experiments to demonstrate the data flow of the pipeline including realistic data without requiring 
 e.g. a Matlab license or high-power computing resources that we used for computing Stan/MCMC results for LGPDE.
 This code is provided as is, with no guarantees or liabilities. 
@@ -29,8 +29,7 @@ computing "Puhti" environment to run Stan MCMC as parallel processes.
 
 Errata: With less resources you might run into parallel timeouts for the default long-running suite of experiments that runs an 
 extensive set of variant combinations of sample sizes, density estimators and classifiers, plus intersects SAR-MSI datasets.
-The timeout can currently be adjusted only in code by increasing the hard-coded 900s timeout constant 
-_TIMEOUT_PARALLEL_S in module pipeline.py . 
+The timeout can currently be adjusted only in code by increasing the 900s timeout constant _TIMEOUT_PARALLEL_S in module pipeline.py . 
 
 Alternatively, please consider the suite on small samples of SAR data configured in sar_10_to_300.yml used in one of the 
 experiments of manuscript Section 3.1 - details given below.
@@ -39,9 +38,16 @@ experiments of manuscript Section 3.1 - details given below.
 - (assumes docker and git can be run from command line)
 - ```git clone https://github.com/luotsi/vegcover-manuscript-12_2021.git```
 - ```cd vegcover-manuscript-12_2021```
-- ```./run_pipeline_docker.sh``` (defaults to experiment configuration msi_sar_fusion_6500.yml, run will take a few hours)
+- ```./run_pipeline_docker.sh``` 
+
+(Defaults to experiment configuration msi_sar_fusion_6500.yml, run will take a few hours. 
+Will report accuracies around 82%)
 - or e.g. ```bash ./run_pipeline_docker.sh msi_sar_fusion_6500.yml```
+
+(same as above)
 - or ```./run_pipeline_docker.sh sar_10_to_300.yml```
+
+(Lightweight, technical experiment on very small (10) to small(300) samples of SAR-only data, accuracies around 62%)
 
 You can also run a shell in the docker image as usual to explore the runtime environment with the command:
 
